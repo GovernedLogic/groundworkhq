@@ -1,0 +1,29 @@
+# dreamhomedata.txt — Groundwork source of truth for DreamHome (GW FR 27, FR 28)
+# Format:
+#   as-of: YYYY-MM-DD                        (date shown as "As of" on the page)
+#   gauge: <label> = <whole number 0-10>     (filled blocks; label must match the page exactly)
+#   ## YYYY-MM-DD                            (starts a weekly note; following lines are the note text, verbatim)
+# Lines starting with "#" (single hash + space) are comments. Missing/invalid value => gauge shows "Not available".
+# Gauge labels are verbatim from the signed DreamHome agreement. Notes are shown newest first.
+# No values yet: until Paul supplies them, the page shows "Not available" for the as-of date and every gauge.
+# To publish data, remove the leading "# " from a line below and fill in the value.
+
+# as-of: YYYY-MM-DD
+
+# Paul leads — activities A1–A5
+# gauge: Mercury + causal-result discovery =
+# gauge: Requirements, rules + working product =
+# gauge: Technical direction + implementation =
+# gauge: Testing, demos + measurement =
+# gauge: Risks, blockers + ownership questions =
+
+# DreamHome receives — deliverables D1–D5
+# gauge: Working Springfield lead-generation POC =
+# gauge: Clear picture of what drives results =
+# gauge: Baseline + simple measurements =
+# gauge: Tested and demonstrated product =
+# gauge: Enough documentation to maintain/improve =
+
+# Weekly notes go below this line, e.g.:
+# ## 2026-10-28
+# Note text written by Paul.
