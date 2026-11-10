@@ -7,18 +7,35 @@
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#070b16">
 <title>Springfield DreamHome · Groundwork</title>
+<link rel="icon" href="favicon.png" type="image/png">
 <link rel="preload" href="inter-var-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="backdrop" aria-hidden="true"></div>
 
+<div class="gate" id="gate">
+  <div class="gate__panel">
+    <img class="brand__logo gate__logo" src="groundwork-logo-sm.png" alt="Groundwork" width="519" height="120">
+    <form class="gate__form" id="gate-form" action="#" method="post">
+      <label class="gate__label" for="gate-code">Access code</label>
+      <input class="gate__input" id="gate-code" name="code" type="text" autocomplete="off" spellcheck="false" autocapitalize="off" required>
+      <button class="gate__submit" type="submit">Continue</button>
+    </form>
+    <p class="gate__error" id="gate-error" hidden>That code did not work.</p>
+  </div>
+</div>
+
 <!-- Dashboard -->
-<div class="app" id="app">
+<div class="app" id="app" hidden>
   <header class="topbar">
     <div class="wrap topbar__inner">
-      <div class="brand"><img class="brand__logo" src="groundwork-logo.png" alt="Groundwork" width="1346" height="311"></div>
+      <div class="brand"><img class="brand__logo" src="groundwork-logo-sm.png" alt="Groundwork" width="519" height="120"></div>
       <span class="topbar__client">DreamHome</span>
+      <div class="view-switch" role="group" aria-label="Dashboard view">
+        <button type="button" class="view-switch__btn" id="view-paul" data-view="paul" aria-pressed="false">Paul's view</button>
+        <button type="button" class="view-switch__btn is-active" id="view-customer" data-view="customer" aria-pressed="true">Customer's view</button>
+      </div>
     </div>
   </header>
 
@@ -81,6 +98,25 @@
         </div>
       </section>
     </aside>
+
+    <section class="panel mql" aria-labelledby="mql-h">
+      <div class="panel__head">
+        <h2 id="mql-h" class="panel__title">Marketing qualified leads</h2>
+      </div>
+      <div class="mql__target">
+        <span class="mql__target-label">Target</span>
+        <span class="mql__target-value" id="mql-target">Not available</span>
+        <span class="mql__target-unit">MQLs per month</span>
+      </div>
+      <div class="mql__tiles" id="mql-tiles"></div>
+    </section>
+
+    <section class="panel callinfo" id="callinfo" aria-labelledby="calls-h" hidden>
+      <div class="panel__head">
+        <h2 id="calls-h" class="panel__title">Call information</h2>
+      </div>
+      <div class="callinfo__body" id="calls"></div>
+    </section>
   </main>
 
   <footer class="wrap foot">
@@ -88,6 +124,7 @@
   </footer>
 </div>
 
+<script src="gate.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

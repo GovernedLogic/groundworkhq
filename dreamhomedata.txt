@@ -8,7 +8,7 @@
 # No values yet: until Paul supplies them, the page shows "Not available" for the as-of date and every gauge.
 # To publish data, remove the leading "# " from a line below and fill in the value.
 
-# as-of: YYYY-MM-DD
+as-of: 2026-11-10
 
 # Paul leads — activities A1–A5
 # gauge: Mercury + causal-result discovery =
@@ -18,12 +18,34 @@
 # gauge: Risks, blockers + ownership questions =
 
 # DreamHome receives — deliverables D1–D5
-# gauge: Working Springfield lead-generation POC =
-# gauge: Clear picture of what drives results =
-# gauge: Baseline + simple measurements =
-# gauge: Tested and demonstrated product =
-# gauge: Enough documentation to maintain/improve =
+gauge: Working Springfield lead-generation POC = 5
+gauge: Clear picture of what drives results = 5
+gauge: Baseline + simple measurements = 5
+gauge: Tested and demonstrated product = 5
+gauge: Enough documentation to maintain/improve = 5
 
 # Weekly notes go below this line, e.g.:
 # ## 2026-10-28
 # Note text written by Paul.
+
+# Marketing qualified leads (MQL)
+#   mql-target: <whole number>               (monthly MQL target shown on the page)
+#   A source tile is created by a group of keys. Each mql-name starts a new tile:
+#   mql-name: <source name>
+#   mql-count: <whole number>
+#   mql-as-of: YYYY-MM-DD
+#   mql-source: <evidence origin>
+#   mql-rationale: <why this count>
+# No source entries yet. Until Paul adds them, the page shows the target and one
+# tile reading "Awaiting data, as of 2026-11-10" with Source and Rationale as
+# "Not available". Place these keys above any weekly notes section.
+mql-target: 350
+
+# Call information (opaque IDs only)
+# Do not add customer names, phone numbers, recordings or call content.
+# The page only reads the keys below. Any other call-* key is ignored.
+#   call-id: <opaque id>
+#   call-as-of: YYYY-MM-DD
+#   call-source: <evidence origin>
+#   call-rationale: <why this record is shown>
+# Missing records display as "Not available".
