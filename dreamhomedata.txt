@@ -1,51 +1,109 @@
 # dreamhomedata.txt — Groundwork source of truth for DreamHome (GW FR 27, FR 28)
+# Approved by Paul 2026-11-12 3:17 AM ET (F10).
+# Scores and notes are built from dated work evidence. Citations live in EVIDENCE.md
+# in this same folder. Do not copy EVIDENCE.md or any lead-list file into the public repo.
 # Format:
 #   as-of: YYYY-MM-DD                        (date shown as "As of" on the page)
 #   gauge: <label> = <whole number 0-10>     (filled blocks; label must match the page exactly)
 #   ## YYYY-MM-DD                            (starts a weekly note; following lines are the note text, verbatim)
 # Lines starting with "#" (single hash + space) are comments. Missing/invalid value => gauge shows "Not available".
 # Gauge labels are verbatim from the signed DreamHome agreement. Notes are shown newest first.
-# No values yet: until Paul supplies them, the page shows "Not available" for the as-of date and every gauge.
-# To publish data, remove the leading "# " from a line below and fill in the value.
 
-as-of: 2026-11-10
+as-of: 2026-11-11
 
 # Paul leads — activities A1–A5
-# gauge: Mercury + causal-result discovery =
-# gauge: Requirements, rules + working product =
-# gauge: Technical direction + implementation =
-# gauge: Testing, demos + measurement =
-# gauge: Risks, blockers + ownership questions =
+gauge: Mercury + causal-result discovery = 5
+gauge: Requirements, rules + working product = 6
+gauge: Technical direction + implementation = 6
+gauge: Testing, demos + measurement = 5
+gauge: Risks, blockers + ownership questions = 7
 
 # DreamHome receives — deliverables D1–D5
-gauge: Working Springfield lead-generation POC = 5
-gauge: Clear picture of what drives results = 5
-gauge: Baseline + simple measurements = 5
+gauge: Working Springfield lead-generation POC = 4
+gauge: Clear picture of what drives results = 4
+gauge: Baseline + simple measurements = 3
 gauge: Tested and demonstrated product = 5
-gauge: Enough documentation to maintain/improve = 5
-
-# Weekly notes go below this line, e.g.:
-# ## 2026-10-28
-# Note text written by Paul.
+gauge: Enough documentation to maintain/improve = 7
 
 # Marketing qualified leads (MQL)
-#   mql-target: <whole number>               (monthly MQL target shown on the page)
-#   A source tile is created by a group of keys. Each mql-name starts a new tile:
-#   mql-name: <source name>
-#   mql-count: <whole number>
-#   mql-as-of: YYYY-MM-DD
-#   mql-source: <evidence origin>
-#   mql-rationale: <why this count>
-# No source entries yet. Until Paul adds them, the page shows the target and one
-# tile reading "Awaiting data, as of 2026-11-10" with Source and Rationale as
-# "Not available". Place these keys above any weekly notes section.
+# mql-target is the signed monthly benchmark, not an actual count.
+# No mql-name source tiles are included. No qualified, office-separated,
+# counting-rule actuals were found. See EVIDENCE.md.
 mql-target: 350
 
 # Call information (opaque IDs only)
 # Do not add customer names, phone numbers, recordings or call content.
-# The page only reads the keys below. Any other call-* key is ignored.
-#   call-id: <opaque id>
-#   call-as-of: YYYY-MM-DD
-#   call-source: <evidence origin>
-#   call-rationale: <why this record is shown>
-# Missing records display as "Not available".
+# No public-safe, opaque call records are included. See EVIDENCE.md.
+
+# Weekly notes (newest first). Public-safe work-done wording only.
+
+## 2026-11-11
+Week of November 9.
+
+On November 9, twelve live link fixes went onto the DreamHome site. The Springfield service-area path, which had been sending visitors to the wrong location, was retargeted to the Springfield location page and independently verified. Six two-hop link chains were shortened to one hop. Four broken county roofing links now send visitors to the service-areas hub. One broken cost link now sends visitors to the correct service-area page. Independent checks confirmed each redirect.
+
+A website truth audit, an open-questions register, and a machine-readability baseline were written from a public crawl. A read-only review of Google Ads lead records was started. Other call and CRM systems stayed out of scope. A captured Local Services list was not treated as a qualified monthly lead count, because office was not filled and the source match could not be independently rechecked.
+
+On November 10 the Groundwork dashboard was published at groundworkhq.net, with two views and a monthly qualified-lead target of 350. On November 11 the custom-domain HTTPS certificate was confirmed, a live login test passed, and the visual design was approved. Springfield Google Ads migration was reported complete that morning, and one live call path was tested. Qualified lead counts by source were still not shown, because they did not yet meet the agreed counting rule.
+
+Why: close the already-found broken Springfield routes, give the engagement a public status home, and keep lead figures off the dashboard until they can be counted under the agreed rule.
+
+## 2026-11-07
+Week of November 2.
+
+An operating record was written on November 5 so current decisions, blockers, and next actions sit in one place. On November 3 ten public website paths were rechecked and four link corrections were staged, with no production edit in that pass.
+
+On November 6 four authorized production edits went live and were verified that morning. The retired Roof Maxx Springfield URL now redirects to the current Roof Maxx page. The legacy financing URL now redirects to the financing page instead of an unrelated article. A duplicate business schema block was removed from the About page. The About page search description was replaced to drop unverified license and frozen review-count claims.
+
+Springfield Google Business Profile performance was reviewed. A headline November drop was a partial-month reporting lag. A real August-to-October decline in call clicks was noted, while website clicks stayed about flat. No call infrastructure was changed in that review.
+
+A public-record assessment of DreamHome versus a local competitor was completed on November 7. A follow-up recorded allowed public measurements and left localized rank grids unmeasured. A research package of 241 files was preserved and independently checked with no content mismatches.
+
+Groundwork functional tests were run on November 6 (73 passed, none failed). The dashboard was still not on a live public host that week.
+
+Why: close the already-found broken routes, remove conflicting About-page claims, keep a single operating record, and gather evidence of how the Springfield market is represented before further site or ads changes.
+
+## 2026-10-31
+Week of October 26.
+
+A read-only site review on October 28 rechecked nine canonical pages. All nine returned successfully and appeared in the sitemap. Official license records were compared with published claims. Ready link and copy corrections were written up and not published that day. A warranty-link mismatch and office-hours questions were left open.
+
+The Groundwork product requirements document was prepared on October 28. It specifies a one-page dashboard with the ten agreement gauges, weekly notes, and evidence-backed current state. Direction that week was a modern dashboard, not a replica of the signed-agreement layout.
+
+By October 31 a Groundwork dashboard existed as static source, with the ten gauges, a weekly notes feed, and leads marked coming soon. Data values were not filled. Proposed gauge values and a command-center view remained unmerged drafts.
+
+Why: separate proven facts from proposed edits, and lock dashboard requirements before a client-facing release.
+
+## 2026-10-25
+Week of October 19.
+
+WordPress access for the DreamHome site was reported on October 22. A full site backup was taken on October 25. The first WordPress push then updated office-specific Google review proof on the homepage, both location pages, and core service pages, and aligned the Springfield and Hanover search titles with the October 25 snapshot. An inaccurate shared review rating was removed from structured data. Nine canonical pages were verified live after cache. Existing call paths and location-specific review links were kept in place.
+
+Groundwork hosting boundaries were set that week: no DNS or CNAME changes, and a substitute host was rejected. The intended address at that time remained a Governed Logic subdomain, which was later replaced by the public Groundwork site.
+
+Why: make every public surface tell the same provable office-specific facts, with a rollback backup in place, before any Google listing work.
+
+## 2026-10-18
+Week of October 12.
+
+Original Groundwork and DreamHome requirements were prepared on October 14. They set the Springfield lead-generation objective, the ten activity and deliverable gauges, and the rule that the delivery dashboard must report verified scope, work completed, blockers, and decisions, and must not display fictional CRM data.
+
+By October 18 a Groundwork dashboard candidate had been reconciled and passed 101 automated checks and 38 browser checks. It was a tested candidate, not a production release. Hosting and visual acceptance remained open.
+
+Why: give the engagement one written requirements source and a tested dashboard candidate before any public release.
+
+## 2026-10-05
+Week of October 5.
+
+Discovery findings were presented, and the working direction was restated: get Springfield lead generation moving, while website updates would be made directly on the live site rather than through an automated publishing loop. Technical discovery had not found an end-to-end automatic update path from the operations platform to the public pages.
+
+Why: keep website execution and the parallel operations platform in their correct lanes, and put the discovery in front of the people who have to act on it.
+
+## 2026-09-28
+Week of September 21, the first week of the term.
+
+A week-one update reported that the operations platform was easier to prove as an information-gathering system than as the thing currently changing ads or the live site, and that a current DreamHome lead could not yet be traced to a specific platform action. The agreed monthly qualified-lead target was restated, along with the rule that only direct, in-area contacts for offered services count, and that aggregator contacts do not. The same week it was noted that the agreed qualified-lead number could not yet be calculated cleanly from existing records.
+
+On October 1 a raw discovery packet was sent to the DreamHome principals, as data rather than as a finished analysis or strategy.
+
+Why: finish the opening discovery honestly, including what could not yet be measured, before asking for scope and counting-rule decisions.
