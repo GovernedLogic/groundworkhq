@@ -144,7 +144,10 @@
 <script src="app.js"></script>
 <script>
 (function () {
-  var RATE = 0.95; // playback speed, a touch slower than recorded
+  // 0.95 is a touch slower than recorded. iPhone and iPad Safari stretch the voice
+  // out of step with the picture at any rate other than 1, so they play at normal speed.
+  var IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var RATE = IOS ? 1 : 0.95;
   var v = document.getElementById('film'), b = document.getElementById('film-begin');
   if (!v || !b) return;
   function start() {
