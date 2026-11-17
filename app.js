@@ -242,29 +242,49 @@ function render(d, failed) {
   requestAnimationFrame(() => requestAnimationFrame(() => document.body.classList.add("is-ready")));
 }
 
+const VIEWS = ["paul", "company", "data"];
+
 function setView(view) {
-  const v = view === "paul" ? "paul" : "customer";
+  let v = view === "customer" ? "company" : view; // older session label
+  if (!VIEWS.includes(v)) v = "paul";
   document.body.dataset.view = v;
   try { sessionStorage.setItem(VIEW_KEY, v); } catch (e) { /* storage may be blocked */ }
-  const paul = $("view-paul");
-  const cust = $("view-customer");
-  if (paul && cust) {
-    paul.classList.toggle("is-active", v === "paul");
-    cust.classList.toggle("is-active", v === "customer");
-    paul.setAttribute("aria-pressed", v === "paul" ? "true" : "false");
-    cust.setAttribute("aria-pressed", v === "customer" ? "true" : "false");
+  for (const name of VIEWS) {
+    const btn = $("view-" + name);
+    if (!btn) continue;
+    const on = v === name;
+    btn.classList.toggle("is-active", on);
+    btn.setAttribute("aria-pressed", on ? "true" : "false");
   }
   const callSec = $("callinfo");
   if (callSec) callSec.hidden = v !== "paul";
+  const film = document.querySelector(".film");
+  const main = $("main");
+  // Paul's view: film + full dashboard (including call information).
+  // company view: the former Customer's view dashboard, no film.
+  // data: gauges, notes and MQL only — no film, no leads placeholder, no call information.
+  if (film) film.hidden = v !== "paul";
+  if (main) main.hidden = false;
+  const vid = $("film");
+  const begin = $("film-begin");
+  if (vid && v !== "paul") {
+    vid.pause();
+    if (begin) begin.hidden = false;
+  }
 }
 
 function initViews() {
-  if (!$("view-paul") || !$("view-customer")) return;
-  let v = "customer";
-  try { v = sessionStorage.getItem(VIEW_KEY) || "customer"; } catch (e) { /* default */ }
+  if (!$("view-paul")) return;
+  let v = "paul";
+  try {
+    v = sessionStorage.getItem(VIEW_KEY) || "paul";
+    if (v === "customer") v = "company";
+  } catch (e) { /* default */ }
   setView(v);
-  $("view-paul").addEventListener("click", () => setView("paul"));
-  $("view-customer").addEventListener("click", () => setView("customer"));
+  for (const name of VIEWS) {
+    const btn = $("view-" + name);
+    if (btn) btn.addEventListener("click", () => setView(name));
+  }
 }
 
 async function load() {

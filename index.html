@@ -21,8 +21,14 @@
   .film__begin[hidden]{display:none}
 </style>
 </head>
-<body>
+<body class="is-intro">
 <div class="backdrop" aria-hidden="true"></div>
+
+<div class="intro" id="intro">
+  <video class="intro__video" id="logo-film" src="assets/logo.mp4" playsinline preload="auto" disablepictureinpicture disableremoteplayback></video>
+  <img class="intro__hold" id="logo-hold" alt="" hidden>
+  <button class="intro__sound" id="logo-sound" type="button" hidden>Sound on</button>
+</div>
 
 <div class="gate" id="gate">
   <div class="gate__panel">
@@ -43,15 +49,16 @@
       <div class="brand"><img class="brand__logo" src="groundwork-logo-sm.png" alt="Groundwork" width="519" height="120"></div>
       <span class="topbar__client">DreamHome</span>
       <div class="view-switch" role="group" aria-label="Dashboard view">
-        <button type="button" class="view-switch__btn" id="view-paul" data-view="paul" aria-pressed="false">Paul's view</button>
-        <button type="button" class="view-switch__btn is-active" id="view-customer" data-view="customer" aria-pressed="true">Customer's view</button>
+        <button type="button" class="view-switch__btn is-active" id="view-paul" data-view="paul" aria-pressed="true">Paul's view</button>
+        <button type="button" class="view-switch__btn" id="view-company" data-view="company" aria-pressed="false">company view</button>
+        <button type="button" class="view-switch__btn" id="view-data" data-view="data" aria-pressed="false">data</button>
       </div>
     </div>
   </header>
 
   <!-- Film hero -->
   <section class="film" aria-label="DreamHome film">
-    <video class="film__video" id="film" src="assets/main.mp4#t=0.001" loop playsinline preload="metadata" disablepictureinpicture disableremoteplayback></video>
+    <video class="film__video" id="film" loop playsinline preload="none" disablepictureinpicture disableremoteplayback></video>
     <button class="film__begin" id="film-begin" type="button" aria-label="Begin the film with sound">Begin</button>
   </section>
 
@@ -68,7 +75,7 @@
       </div>
       <div class="asof" aria-label="As of date">
         <span class="asof__label"><span class="pulse" aria-hidden="true"></span>As of</span>
-        <time class="asof__date" id="asof">—</time>
+        <time class="asof__date" id="asof"></time>
       </div>
     </section>
 
@@ -83,14 +90,14 @@
         <section class="group group--a" aria-labelledby="ga-h">
           <header class="group__head">
             <h3 id="ga-h" class="group__title">Paul leads</h3>
-            <span class="group__tag">Activities · A1–A5</span>
+            <span class="group__tag">Activities · A1 to A5</span>
           </header>
           <ol class="gauges" id="gauges-a"></ol>
         </section>
         <section class="group group--d" aria-labelledby="gd-h">
           <header class="group__head">
             <h3 id="gd-h" class="group__title">DreamHome receives</h3>
-            <span class="group__tag">Deliverables · D1–D5</span>
+            <span class="group__tag">Deliverables · D1 to D5</span>
           </header>
           <ol class="gauges" id="gauges-d"></ol>
         </section>
@@ -150,7 +157,16 @@
   var RATE = IOS ? 1 : 0.95;
   var v = document.getElementById('film'), b = document.getElementById('film-begin');
   if (!v || !b) return;
+  var FILM_SRC = 'assets/main.mp4#t=0.001';
+  function attachFilm() {
+    // Src is attached only after the gate, so main.mp4 is not fetched before login.
+    if (v.getAttribute('src') !== FILM_SRC) {
+      v.setAttribute('src', FILM_SRC);
+      v.load();
+    }
+  }
   function start() {
+    attachFilm();
     v.muted = false; v.volume = 1; v.playbackRate = RATE; v.defaultPlaybackRate = RATE;
     var r = v.play(); if (r && r.catch) r.catch(function () { b.hidden = false; });
   }
@@ -158,7 +174,10 @@
   v.addEventListener('click', function () { if (v.paused) start(); else v.pause(); });
   v.addEventListener('play', function () { b.hidden = true; v.playbackRate = RATE; });
   v.addEventListener('pause', function () { b.hidden = false; });
+  window.groundworkTryFilm = start;
+  if (window.GroundworkGate) window.GroundworkGate.whenUnlocked(attachFilm);
 })();
 </script>
+<script src="landing.js"></script>
 </body>
 </html>
