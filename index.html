@@ -48,7 +48,7 @@
     <div class="wrap topbar__inner">
       <div class="brand"><img class="brand__logo" src="groundwork-logo-sm.png" alt="Groundwork" width="519" height="120"></div>
       <span class="topbar__client">DreamHome</span>
-      <div class="view-switch" role="group" aria-label="Dashboard view">
+      <div class="view-switch" role="group" aria-label="Dashboard view" hidden>
         <button type="button" class="view-switch__btn is-active" id="view-paul" data-view="paul" aria-pressed="true">Paul's view</button>
         <button type="button" class="view-switch__btn" id="view-company" data-view="company" aria-pressed="false">company view</button>
         <button type="button" class="view-switch__btn" id="view-data" data-view="data" aria-pressed="false">data</button>
@@ -62,7 +62,7 @@
     <button class="film__begin" id="film-begin" type="button" aria-label="Begin the film with sound">Begin</button>
   </section>
 
-  <main class="wrap grid" id="main">
+  <main class="wrap grid" id="main" hidden>
     <section class="hero" aria-labelledby="client">
       <div class="hero__id">
         <p class="eyebrow">Client dashboard</p>
@@ -142,7 +142,7 @@
     </section>
   </main>
 
-  <footer class="wrap foot">
+  <footer class="wrap foot" hidden>
     <span>Groundwork · DreamHome</span>
   </footer>
 </div>
