@@ -292,3 +292,10 @@ body.is-logo-login.is-logo-held .intro__video{display:none}
 body.is-logo-login.is-logo-held .intro__hold[hidden]{display:none}
 body.is-logo-login.is-logo-held .intro__hold{display:block}
 @media (max-width:760px){body.is-logo-login .intro__hold{max-height:48vh}}
+
+
+/* Presentation-only release: after login, show the film and nothing else. */
+.app .topbar,
+.app .grid,
+.app .foot{display:none!important}
+.app .film{height:100vh;height:100dvh}
