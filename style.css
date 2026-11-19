@@ -273,7 +273,16 @@ body.is-logo-login .backdrop{display:none}
 body.is-logo-login .intro{position:relative;z-index:2;width:min(1100px,100%);flex:0 1 auto}
 body.is-logo-login .intro__video{max-height:64vh;width:100%;object-fit:contain}
 body.is-logo-login #gate{position:relative;z-index:3;min-height:0;padding:0;width:100%;max-width:400px}
-body.is-logo-login .gate__logo{display:none} /* the logo video already holds the mark and tagline */
+body.is-logo-login .intro{display:none}
+body.is-logo-login .gate__logo{
+  display:block;
+  width:min(100%,340px);
+  height:auto;
+  background:#fff;
+  border-radius:10px;
+  padding:10px 14px;
+  box-shadow:0 16px 44px -22px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.12);
+}
 body.is-logo-login #app{display:none!important}
 
 /* View tabs: company view and data hide the film; data hides the leads placeholder. */
