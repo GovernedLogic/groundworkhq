@@ -44,11 +44,15 @@
   }
 
   function enterLogin() {
-    body.classList.remove("is-intro", "is-logo-playing");
+    body.classList.remove("is-intro", "is-logo-playing", "is-logo-held");
     body.classList.add("is-logo-login");
-    try { logo.pause(); } catch (e) {}
-    snapshotHold();
-    showHoldImage();
+    try {
+      logo.pause();
+      if (logo.duration && isFinite(logo.duration)) {
+        logo.currentTime = Math.max(0, logo.duration - 0.12);
+      }
+    } catch (e) {}
+    if (holdImg) holdImg.hidden = true;
     if (soundBtn) soundBtn.hidden = true;
     var input = document.getElementById("gate-code");
     if (input) input.focus();
