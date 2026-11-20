@@ -15,24 +15,20 @@
   <link rel="manifest" href="site.webmanifest">
   <link rel="preload" href="inter-var-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/logo.mp4" as="video" type="video/mp4">
-  <link rel="stylesheet" href="style.css?v=baseline-20261119">
-  <script src="app.js?v=baseline-20261119" defer></script>
+  <link rel="stylesheet" href="style.css?v=entrance-20261120">
+  <script src="app.js?v=entrance-20261120" defer></script>
 </head>
 <body data-state="intro">
-  <canvas class="atmosphere" id="atmosphere" aria-hidden="true"></canvas>
-  <div class="grid-field" aria-hidden="true"></div>
-  <div class="grain" aria-hidden="true"></div>
   <main class="experience">
     <section class="entrance" id="entrance" aria-label="Groundwork presentation access">
       <div class="entrance__frame">
         <video class="logo-film" id="logo-film" src="assets/logo.mp4" playsinline preload="auto" disablepictureinpicture disableremoteplayback aria-label="Animated Groundwork logo"></video>
-        <div class="scanline" aria-hidden="true"></div>
       </div>
       <button class="sound-control" id="logo-sound" type="button" hidden>Play logo with sound</button>
+      <button class="entry-choice" id="entry-choice" type="button" hidden>View presentation</button>
       <div class="access" id="access" hidden>
-        <p class="access__eyebrow">Groundwork / DreamHome</p>
-        <h1 class="access__title">Presentation access</h1>
-        <p class="access__copy" id="access-copy">Enter the access code to begin the presentation.</p>
+        <h1 class="access__title">DreamHome presentation</h1>
+        <p class="access__copy" id="access-copy">Enter the presentation access code.</p>
         <form class="access__form" id="access-form" action="#" method="post" novalidate>
           <label class="access__label" for="access-code">Access code</label>
           <div class="access__row">
