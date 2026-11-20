@@ -2,13 +2,13 @@
 
 (() => {
   const ACCESS_CODE_SHA256 = "b5a9ede9a93528be3e12c5665c179c2dc0e2648aa6f1b1650f3715e56dad8bec";
-  const UNLOCK_KEY = "groundwork-access";
   const FILM_SOURCE = "assets/main.mp4#t=0.001";
 
   const body = document.body;
   const entrance = document.getElementById("entrance");
   const logo = document.getElementById("logo-film");
   const logoSound = document.getElementById("logo-sound");
+  const entryChoice = document.getElementById("entry-choice");
   const access = document.getElementById("access");
   const accessForm = document.getElementById("access-form");
   const accessInput = document.getElementById("access-code");
@@ -34,16 +34,6 @@
   let filmStarted = false;
   let idleTimer = 0;
 
-  function readUnlock() {
-    try { return sessionStorage.getItem(UNLOCK_KEY) === ACCESS_CODE_SHA256; }
-    catch { return false; }
-  }
-
-  function writeUnlock() {
-    try { sessionStorage.setItem(UNLOCK_KEY, ACCESS_CODE_SHA256); }
-    catch { /* A blocked session store leaves the current visit usable. */ }
-  }
-
   async function sha256hex(value) {
     const bytes = new TextEncoder().encode(value);
     const digest = await crypto.subtle.digest("SHA-256", bytes);
@@ -58,12 +48,8 @@
       try { logo.currentTime = Math.max(0, logo.duration - .08); } catch { /* keep current frame */ }
     }
     logoSound.hidden = true;
-    if (readUnlock()) enterPresentation(false);
-    else {
-      body.dataset.state = "access";
-      access.hidden = false;
-      requestAnimationFrame(() => accessInput.focus({ preventScroll: true }));
-    }
+    body.dataset.state = "ready";
+    entryChoice.hidden = false;
   }
 
   async function playLogo(withSound) {
@@ -91,6 +77,13 @@
     logoSound.hidden = true;
   });
 
+  entryChoice.addEventListener("click", () => {
+    entryChoice.hidden = true;
+    access.hidden = false;
+    body.dataset.state = "access";
+    requestAnimationFrame(() => accessInput.focus({ preventScroll: true }));
+  });
+
   accessForm.addEventListener("submit", async event => {
     event.preventDefault();
     accessError.hidden = true;
@@ -103,7 +96,6 @@
       accessInput.focus();
       return;
     }
-    writeUnlock();
     enterPresentation(true);
   });
 
@@ -264,98 +256,6 @@
     wakeControls();
   });
 
-  function startAtmosphere() {
-    const canvas = document.getElementById("atmosphere");
-    const gl = canvas.getContext("webgl2", { antialias: false, alpha: false, powerPreference: "low-power" });
-    if (!gl || reduceMotion) return;
-
-    const vertex = `#version 300 es
-      in vec2 p;
-      void main(){gl_Position=vec4(p,0.,1.);}`;
-    const fragment = `#version 300 es
-      precision highp float;
-      out vec4 outColor;
-      uniform vec2 resolution;
-      uniform vec2 pointer;
-      uniform float time;
-      float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
-      float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1.,0.)),f.x),mix(hash(i+vec2(0.,1.)),hash(i+vec2(1.,1.)),f.x),f.y);}
-      float fbm(vec2 p){float v=0.,a=.5;mat2 r=mat2(1.55,1.2,-1.2,1.55);for(int i=0;i<5;i++){v+=a*noise(p);p=r*p;a*=.5;}return v;}
-      void main(){
-        vec2 uv=(gl_FragCoord.xy-.5*resolution)/min(resolution.x,resolution.y);
-        vec2 m=(pointer-.5)*2.;
-        float t=time*.095;
-        vec2 q=uv+.08*vec2(sin(t+uv.y*3.+m.y),cos(t*.8+uv.x*3.+m.x));
-        float n=fbm(q*2.2+vec2(t,-t*.62));
-        float radius=length(uv-vec2(m.x*.035,m.y*.025));
-        float ring=.018/(abs(radius-(.31+.035*sin(t*2.+atan(uv.y,uv.x)*4.)))+.022);
-        float signal=pow(max(0.,cos(atan(uv.y,uv.x)*3.-t*2.+n*2.)),10.);
-        vec3 color=vec3(.003,.008,.009);
-        color+=vec3(.025,.20,.12)*n*n;
-        color+=vec3(.06,.78,.43)*ring*.14;
-        color+=vec3(.05,.43,.50)*signal*.07;
-        color*=1.-smoothstep(.48,1.05,radius)*.82;
-        outColor=vec4(pow(color,vec3(.86)),1.);
-      }`;
-
-    function shader(type, source) {
-      const item = gl.createShader(type);
-      gl.shaderSource(item, source);
-      gl.compileShader(item);
-      if (!gl.getShaderParameter(item, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(item));
-      return item;
-    }
-
-    try {
-      const program = gl.createProgram();
-      gl.attachShader(program, shader(gl.VERTEX_SHADER, vertex));
-      gl.attachShader(program, shader(gl.FRAGMENT_SHADER, fragment));
-      gl.linkProgram(program);
-      if (!gl.getProgramParameter(program, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(program));
-      gl.useProgram(program);
-      const buffer = gl.createBuffer();
-      gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,3,-1,-1,3]), gl.STATIC_DRAW);
-      const point = gl.getAttribLocation(program, "p");
-      gl.enableVertexAttribArray(point);
-      gl.vertexAttribPointer(point, 2, gl.FLOAT, false, 0, 0);
-      const resolution = gl.getUniformLocation(program, "resolution");
-      const pointer = gl.getUniformLocation(program, "pointer");
-      const timeUniform = gl.getUniformLocation(program, "time");
-      const target = { x: .5, y: .5 };
-      const current = { x: .5, y: .5 };
-
-      function resize() {
-        const density = Math.min(devicePixelRatio || 1, 1.6);
-        canvas.width = Math.round(innerWidth * density);
-        canvas.height = Math.round(innerHeight * density);
-        gl.viewport(0, 0, canvas.width, canvas.height);
-      }
-
-      addEventListener("resize", resize, { passive: true });
-      addEventListener("pointermove", event => {
-        target.x = event.clientX / innerWidth;
-        target.y = 1 - event.clientY / innerHeight;
-      }, { passive: true });
-      resize();
-
-      function render(now) {
-        if (body.dataset.state === "presenting") return;
-        current.x += (target.x - current.x) * .035;
-        current.y += (target.y - current.y) * .035;
-        gl.uniform2f(resolution, canvas.width, canvas.height);
-        gl.uniform2f(pointer, current.x, current.y);
-        gl.uniform1f(timeUniform, now * .001);
-        gl.drawArrays(gl.TRIANGLES, 0, 3);
-        requestAnimationFrame(render);
-      }
-      requestAnimationFrame(render);
-    } catch {
-      canvas.classList.add("is-fallback");
-    }
-  }
-
-  startAtmosphere();
   updateVolume();
   if (reduceMotion) {
     logo.addEventListener("loadedmetadata", finishLogo, { once: true });
