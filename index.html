@@ -1,183 +1,71 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="robots" content="noindex,nofollow">
-<meta name="color-scheme" content="dark">
-<meta name="theme-color" content="#070b16">
-<title>Springfield DreamHome · Groundwork</title>
-<link rel="icon" href="favicon.png" type="image/png">
-<link rel="preload" href="inter-var-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css">
-<style>
-  /* Film hero: the main hero is the DreamHome film. Swap assets/main.mp4 to replace it. */
-  .film{position:relative;height:calc(100vh - 64px);height:calc(100dvh - 64px);background:#000;overflow:hidden}
-  .film__video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;background:#000;border:0;outline:0;cursor:pointer}
-  .film__video::-webkit-media-controls,.film__video::-webkit-media-controls-enclosure,.film__video::-webkit-media-controls-start-playback-button{display:none!important;-webkit-appearance:none}
-  .film__begin{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;padding:14px 38px;border-radius:999px;border:1px solid rgba(255,255,255,.55);background:rgba(0,0,0,.45);color:#fff;font:500 15px/1 system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);transition:background .2s,transform .2s}
-  .film__begin:hover{background:rgba(255,255,255,.12);transform:translate(-50%,-50%) scale(1.03)}
-  .film__begin:focus-visible{outline:2px solid #fff;outline-offset:4px}
-  .film__begin[hidden]{display:none}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+  <meta name="referrer" content="no-referrer">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#020608">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; frame-src 'none'; img-src 'self' data:; media-src 'self'; font-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self'">
+  <title>Groundwork | DreamHome Presentation</title>
+  <meta name="description" content="A private Groundwork presentation for DreamHome.">
+  <link rel="canonical" href="https://groundworkhq.net/">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="preload" href="inter-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/logo.mp4" as="video" type="video/mp4">
+  <link rel="stylesheet" href="style.css?v=baseline-20261119">
+  <script src="app.js?v=baseline-20261119" defer></script>
 </head>
-<body class="is-intro">
-<div class="backdrop" aria-hidden="true"></div>
-
-<div class="intro" id="intro">
-  <video class="intro__video" id="logo-film" src="assets/logo.mp4" playsinline preload="auto" disablepictureinpicture disableremoteplayback></video>
-  <img class="intro__hold" id="logo-hold" alt="" hidden>
-  <button class="intro__sound" id="logo-sound" type="button" hidden>Sound on</button>
-</div>
-
-<div class="gate" id="gate">
-  <div class="gate__panel">
-    <img class="brand__logo gate__logo" src="groundwork-logo.png" alt="Groundwork" width="1346" height="312">
-    <form class="gate__form" id="gate-form" action="#" method="post">
-      <label class="gate__label" for="gate-code">Access code</label>
-      <input class="gate__input" id="gate-code" name="code" type="text" autocomplete="off" spellcheck="false" autocapitalize="off" required>
-      <button class="gate__submit" type="submit">Continue</button>
-    </form>
-    <p class="gate__error" id="gate-error" hidden>That code did not work.</p>
-  </div>
-</div>
-
-<!-- Dashboard -->
-<div class="app" id="app" hidden>
-  <header class="topbar">
-    <div class="wrap topbar__inner">
-      <div class="brand"><img class="brand__logo" src="groundwork-logo-sm.png" alt="Groundwork" width="519" height="120"></div>
-      <span class="topbar__client">DreamHome</span>
-      <div class="view-switch" role="group" aria-label="Dashboard view" hidden>
-        <button type="button" class="view-switch__btn is-active" id="view-paul" data-view="paul" aria-pressed="true">Paul's view</button>
-        <button type="button" class="view-switch__btn" id="view-company" data-view="company" aria-pressed="false">company view</button>
-        <button type="button" class="view-switch__btn" id="view-data" data-view="data" aria-pressed="false">data</button>
+<body data-state="intro">
+  <canvas class="atmosphere" id="atmosphere" aria-hidden="true"></canvas>
+  <div class="grid-field" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <main class="experience">
+    <section class="entrance" id="entrance" aria-label="Groundwork presentation access">
+      <div class="entrance__frame">
+        <video class="logo-film" id="logo-film" src="assets/logo.mp4" playsinline preload="auto" disablepictureinpicture disableremoteplayback aria-label="Animated Groundwork logo"></video>
+        <div class="scanline" aria-hidden="true"></div>
       </div>
-    </div>
-  </header>
-
-  <!-- Film hero -->
-  <section class="film" aria-label="DreamHome film">
-    <video class="film__video" id="film" loop playsinline preload="none" disablepictureinpicture disableremoteplayback></video>
-    <button class="film__begin" id="film-begin" type="button" aria-label="Begin the film with sound">Begin</button>
-  </section>
-
-  <main class="wrap grid" id="main" hidden>
-    <section class="hero" aria-labelledby="client">
-      <div class="hero__id">
-        <p class="eyebrow">Client dashboard</p>
-        <h1 id="client" class="hero__title">Springfield DreamHome</h1>
-        <dl class="hero__meta">
-          <div><dt>Project</dt><dd>Fractional CTO working agreement</dd></div>
-          <div><dt>Term</dt><dd>September 21 - December 18, 2026</dd></div>
-          <div><dt>Length</dt><dd>13 weeks</dd></div>
-        </dl>
-      </div>
-      <div class="asof" aria-label="As of date">
-        <span class="asof__label"><span class="pulse" aria-hidden="true"></span>As of</span>
-        <time class="asof__date" id="asof"></time>
+      <button class="sound-control" id="logo-sound" type="button" hidden>Play logo with sound</button>
+      <div class="access" id="access" hidden>
+        <p class="access__eyebrow">Groundwork / DreamHome</p>
+        <h1 class="access__title">Presentation access</h1>
+        <p class="access__copy" id="access-copy">Enter the access code to begin the presentation.</p>
+        <form class="access__form" id="access-form" action="#" method="post" novalidate>
+          <label class="access__label" for="access-code">Access code</label>
+          <div class="access__row">
+            <input class="access__input" id="access-code" name="code" type="password" inputmode="numeric" autocomplete="off" spellcheck="false" autocapitalize="off" aria-describedby="access-copy access-error" required>
+            <button class="access__submit" type="submit">Enter presentation</button>
+          </div>
+          <p class="access__error" id="access-error" role="alert" hidden>That code did not work.</p>
+        </form>
       </div>
     </section>
-
-    <p class="notice" id="load-error" role="alert" hidden>Data couldn't load.</p>
-
-    <section class="panel status" aria-labelledby="status-h">
-      <div class="panel__head">
-        <h2 id="status-h" class="panel__title">Status</h2>
-        <span class="legend" aria-hidden="true"><i class="legend__seg legend__seg--on"></i>Filled<i class="legend__seg"></i>Empty<span class="legend__unit">10 blocks per gauge</span></span>
-      </div>
-      <div class="groups">
-        <section class="group group--a" aria-labelledby="ga-h">
-          <header class="group__head">
-            <h3 id="ga-h" class="group__title">Paul leads</h3>
-            <span class="group__tag">Activities · A1 to A5</span>
-          </header>
-          <ol class="gauges" id="gauges-a"></ol>
-        </section>
-        <section class="group group--d" aria-labelledby="gd-h">
-          <header class="group__head">
-            <h3 id="gd-h" class="group__title">DreamHome receives</h3>
-            <span class="group__tag">Deliverables · D1 to D5</span>
-          </header>
-          <ol class="gauges" id="gauges-d"></ol>
-        </section>
-      </div>
-    </section>
-
-    <aside class="side">
-      <section class="panel notes" aria-labelledby="notes-h">
-        <div class="panel__head">
-          <h2 id="notes-h" class="panel__title">Weekly notes</h2>
-          <span class="panel__hint">Newest first</span>
+    <section class="presentation" id="presentation" aria-label="DreamHome presentation" hidden>
+      <div class="player" id="player">
+        <video class="player__video" id="film" playsinline preload="metadata" disablepictureinpicture disableremoteplayback aria-label="Groundwork DreamHome presentation"></video>
+        <div class="player__shade" aria-hidden="true"></div>
+        <button class="player__action" id="primary-action" type="button" aria-label="Begin presentation">
+          <span class="player__action-mark" aria-hidden="true"></span>
+          <span id="primary-label">Begin presentation</span>
+        </button>
+        <div class="controls" id="controls" aria-label="Presentation controls">
+          <button class="control control--play" id="play-toggle" type="button" aria-label="Play presentation">
+            <span class="control__glyph" aria-hidden="true" id="play-symbol" data-icon="play"></span>
+          </button>
+          <label class="sr-only" for="progress">Presentation progress</label>
+          <input class="progress" id="progress" type="range" min="0" max="1000" value="0" step="1">
+          <output class="time" id="time" for="progress">0:00 / 4:59</output>
+          <button class="control" id="mute-toggle" type="button" aria-label="Mute presentation"><span aria-hidden="true" id="volume-symbol">VOL</span></button>
+          <label class="sr-only" for="volume">Volume</label>
+          <input class="volume" id="volume" type="range" min="0" max="1" value="1" step="0.05">
+          <button class="control" id="fullscreen-toggle" type="button" aria-label="Enter fullscreen"><span aria-hidden="true">FULL</span></button>
         </div>
-        <div id="notes" class="feed"></div>
-      </section>
-
-      <section class="panel leads" aria-labelledby="leads-h">
-        <div class="leads__row">
-          <span class="leads__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 4 8-8"/><path d="M14 8h6v6"/></svg></span>
-          <h2 id="leads-h" class="panel__title">Leads</h2>
-          <span class="badge">Coming soon</span>
-        </div>
-      </section>
-    </aside>
-
-    <section class="panel mql" aria-labelledby="mql-h">
-      <div class="panel__head">
-        <h2 id="mql-h" class="panel__title">Marketing qualified leads</h2>
+        <div class="player__status sr-only" id="player-status" aria-live="polite"></div>
       </div>
-      <div class="mql__target">
-        <span class="mql__target-label">Target</span>
-        <span class="mql__target-value" id="mql-target">Not available</span>
-        <span class="mql__target-unit">MQLs per month</span>
-      </div>
-      <div class="mql__tiles" id="mql-tiles"></div>
-    </section>
-
-    <section class="panel callinfo" id="callinfo" aria-labelledby="calls-h" hidden>
-      <div class="panel__head">
-        <h2 id="calls-h" class="panel__title">Call information</h2>
-      </div>
-      <div class="callinfo__body" id="calls"></div>
     </section>
   </main>
-
-  <footer class="wrap foot" hidden>
-    <span>Groundwork · DreamHome</span>
-  </footer>
-</div>
-
-<script src="gate.js"></script>
-<script src="app.js"></script>
-<script>
-(function () {
-  // 0.95 is a touch slower than recorded. iPhone and iPad Safari stretch the voice
-  // out of step with the picture at any rate other than 1, so they play at normal speed.
-  var IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-  var RATE = IOS ? 1 : 0.95;
-  var v = document.getElementById('film'), b = document.getElementById('film-begin');
-  if (!v || !b) return;
-  var FILM_SRC = 'assets/main.mp4#t=0.001';
-  function attachFilm() {
-    // Src is attached only after the gate, so main.mp4 is not fetched before login.
-    if (v.getAttribute('src') !== FILM_SRC) {
-      v.setAttribute('src', FILM_SRC);
-      v.load();
-    }
-  }
-  function start() {
-    attachFilm();
-    v.muted = false; v.volume = 1; v.playbackRate = RATE; v.defaultPlaybackRate = RATE;
-    var r = v.play(); if (r && r.catch) r.catch(function () { b.hidden = false; });
-  }
-  b.addEventListener('click', start);
-  v.addEventListener('click', function () { if (v.paused) start(); else v.pause(); });
-  v.addEventListener('play', function () { b.hidden = true; v.playbackRate = RATE; });
-  v.addEventListener('pause', function () { b.hidden = false; });
-  window.groundworkTryFilm = start;
-  if (window.GroundworkGate) window.GroundworkGate.whenUnlocked(attachFilm);
-})();
-</script>
-<script src="landing.js"></script>
 </body>
 </html>

@@ -1,0 +1,12 @@
+{
+  "name": "Groundwork Presentation",
+  "short_name": "Groundwork",
+  "description": "A private Groundwork presentation experience.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#020405",
+  "theme_color": "#020608",
+  "icons": [
+    {"src": "favicon.png", "sizes": "any", "type": "image/png"}
+  ]
+}
